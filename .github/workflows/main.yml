@@ -1,0 +1,19 @@
+name: Update Coding Streak
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight
+
+jobs:
+  update-streak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Update Streak
+        run: |
+          date >> streak.log
+          git add .
+          git commit -m "Automated commit to maintain streak 🚀"
+          git push
