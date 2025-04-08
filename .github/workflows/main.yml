@@ -11,9 +11,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Update Streak
         run: |
           date >> streak.log
           git add .
-          git commit -m "Automated commit to maintain streak 🚀"
+          git commit -m "Automated commit to maintain streak 🚀" || echo "No changes to commit"
           git push
+        env:
+          # This gives permission to push
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
